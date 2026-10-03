@@ -33,3 +33,5 @@ def test_parse_amount():
     assert parse_amount("1000-2000") == 1500
     assert parse_amount(None) == 0 and parse_amount("n/a") == 0 and parse_amount(float("nan")) == 0
     assert parse_amount(-5) == 0
+def test_parse_amount_with_comma_separated_value():
+    assert parse_amount("₹25,000") == 25000
