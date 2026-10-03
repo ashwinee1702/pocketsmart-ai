@@ -66,6 +66,16 @@ def test_public_pages_and_health(client):
     assert h["status"] == "ok" and h["ai_mode"] == "demo"
     assert "fake" not in str(h)
 
+def test_health_does_not_expose_api_key(client):
+    response = client.get("/health")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert "gemini_api_key" not in data
+    assert "api_key" not in data
+    assert "key" not in data
 
 def test_unknown_page_shows_friendly_404(client):
     r = client.get("/nope", headers={"accept": "text/html"})
